@@ -8,28 +8,42 @@
         label="Select a category"
       />
 
-      <BaseInput v-model="event.title" label="Title" type="text" />
-      <BaseInput v-model="event.description" label="Description" type="text" />
-      <h3>Where is your event?</h3>
-      <BaseInput v-model="event.location" label="Location" type="text" />
-
-      <h3>Are pets allowed?</h3>
-      <div>
-        <BaseRadioGroup
-          v-model="event.pets"
-          name="pets"
-          :options="petOptions"
+      <fieldset>
+        <legend>Name & Describe your event</legend>
+        <BaseInput v-model="event.title" label="Title" type="text" />
+        <BaseInput
+          v-model="event.description"
+          label="Description"
+          type="text"
         />
-      </div>
+      </fieldset>
 
-      <h3>Extras</h3>
-      <div>
-        <BaseCheckbox v-model="event.extras.catering" label="Catering" />
-      </div>
+      <fieldset>
+        <legend>Where's your event?</legend>
+        <BaseInput v-model="event.location" label="Location" type="text" />
+      </fieldset>
 
-      <div>
-        <BaseCheckbox v-model="event.extras.music" label="Live Music" />
-      </div>
+      <fieldset>
+        <legend>Pets</legend>
+        <p>Are pets allowed ?</p>
+        <div>
+          <BaseRadioGroup
+            v-model="event.pets"
+            name="pets"
+            :options="petOptions"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Extras</legend>
+        <div>
+          <BaseCheckbox v-model="event.extras.catering" label="Catering" />
+        </div>
+        <div>
+          <BaseCheckbox v-model="event.extras.music" label="Live Music" />
+        </div>
+      </fieldset>
 
       <button class="button -fill-gradient" type="submit">Submit</button>
     </form>
@@ -38,6 +52,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -87,3 +102,15 @@ export default {
   },
 }
 </script>
+<style scoped>
+fieldset {
+  border: 0;
+  margin: 0;
+  margin: 0;
+}
+legend {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+</style>
