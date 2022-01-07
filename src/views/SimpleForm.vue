@@ -2,17 +2,11 @@
   <div>
     <h1>Create an event</h1>
     <form>
-      <label>Select a category</label>
-      <select v-model="event.category">
-        <option
-          v-for="option in categories"
-          :value="option"
-          :key="option"
-          :selected="option === event.category"
-        >
-          {{ option }}
-        </option>
-      </select>
+      <BaseSelect
+        :options="categories"
+        v-model="event.category"
+        label="Select a category"
+      />
 
       <BaseInput v-model="event.title" label="Title" type="text" />
       <BaseInput v-model="event.description" label="Description" type="text" />
