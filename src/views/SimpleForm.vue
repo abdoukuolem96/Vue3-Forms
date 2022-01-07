@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create an event</h1>
-    <form>
+    <form @submit.prevent="sendForm">
       <BaseSelect
         :options="categories"
         v-model="event.category"
@@ -15,24 +15,20 @@
 
       <h3>Are pets allowed?</h3>
       <div>
-        <input type="radio" v-model="event.pets" :value="1" name="pets" />
-        <label>Yes</label>
-      </div>
-
-      <div>
-        <input type="radio" v-model="event.pets" :value="0" name="pets" />
-        <label>No</label>
+        <BaseRadioGroup
+          v-model="event.pets"
+          name="pets"
+          :options="petOptions"
+        />
       </div>
 
       <h3>Extras</h3>
       <div>
-        <input type="checkbox" v-model="event.extras.catering" class="field" />
-        <label>Catering</label>
+        <BaseCheckbox v-model="event.extras.catering" label="Catering" />
       </div>
 
       <div>
-        <input type="checkbox" v-model="event.extras.music" class="field" />
-        <label>Live music</label>
+        <BaseCheckbox v-model="event.extras.music" label="Live Music" />
       </div>
 
       <button class="button -fill-gradient" type="submit">Submit</button>
@@ -41,6 +37,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -64,7 +61,29 @@ export default {
           music: false,
         },
       },
+      petOptions: [
+        {
+          label: 'Yes',
+          value: 1,
+        },
+        {
+          label: 'No',
+          value: 0,
+        },
+      ],
     }
+  },
+  methods: {
+    sendForm() {
+      axios
+        .post(
+          'https://my-json-server.typicode.com/Code-Pop/Vue-3-Forms/events',
+          this.event
+        )
+        .then((res) => console.log('Response', res))
+        .catch((err) => console.log(err))
+    },
+    // https://my-json-server.typicode.com/Code-Pop/Vue-3-Forms
   },
 }
 </script>
